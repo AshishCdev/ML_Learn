@@ -15,22 +15,14 @@
 ## <https://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*- 
-## @deftypefn {} {@var{retval} =} computeCost (@var{input1}, @var{input2})
+## @deftypefn {} {@var{retval} =} featureScale (@var{input1}, @var{input2})
 ##
 ## @seealso{}
 ## @end deftypefn
 
 ## Author: Ashish Kushwaha <ashish@LinuxWorkBox>
-## Created: 2021-03-09
+## Created: 2021-03-11
 
-function Cost = computeCost (theta, inputDataX, inputDataY)
-
-m = size(inputDataX)(1,1);
-Temp = 0;
-
-for i = 1:m
-    Temp = Temp+(((inputDataX(i,:) * theta') - inputDataY(i))^2);    
-end
-Cost = (1/(2*m)) * Temp;
+function retval = featureScale (inputX)
 
 endfunction

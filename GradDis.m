@@ -15,22 +15,35 @@
 ## <https://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*- 
-## @deftypefn {} {@var{retval} =} computeCost (@var{input1}, @var{input2})
+## @deftypefn {} {@var{retval} =} GradDis (@var{input1}, @var{input2})
 ##
 ## @seealso{}
 ## @end deftypefn
 
 ## Author: Ashish Kushwaha <ashish@LinuxWorkBox>
-## Created: 2021-03-09
+## Created: 2021-03-11
 
-function Cost = computeCost (theta, inputDataX, inputDataY)
+function [cost, weights] = GradDis (theta, inputDataX, inputDataY, MaxStep, lrningRate)
 
 m = size(inputDataX)(1,1);
+no_of_input_ftrs = size(inputDataX)(1,2);
+temp = [1:no_of_input_ftrs];
 Temp = 0;
+cost = computeCost(theta,inputDataX,inputDataY);
 
-for i = 1:m
-    Temp = Temp+(((inputDataX(i,:) * theta') - inputDataY(i))^2);    
-end
-Cost = (1/(2*m)) * Temp;
+for nthTime = 1:MaxStep
+    for n_ftrs = 1:no_of_input_ftrs
+        for i = 1:m
+            Temp = Temp+((inputDataX(i,:) * theta') - inputDataY(i));    
+        end
+        %disp(Temp);
+        temp(n_ftrs) = theta(n_ftrs) - (lrningRate/m)*Temp*sum(inputDataX(:,n_ftrs));
+        %disp(temp);
+    end
+    for n_ftrs = 1:no_of_input_ftrs
+        theta(n_ftrs) = temp(n_ftrs);
+    end
+end 
 
+weights = theta;
 endfunction
